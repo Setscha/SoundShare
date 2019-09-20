@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "960324163200",
+    "firebase_url": "https://soundshare-3dee3.firebaseio.com",
+    "project_id": "soundshare-3dee3",
+    "storage_bucket": "soundshare-3dee3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960324163200:android:fe815d0259de987b247865",
+        "android_client_info": {
+          "package_name": "www.soundshare.gq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960324163200-kjs2ake0ddd93giec50mtd8189hkd4v9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "www.soundshare.gq",
+            "certificate_hash": "29f95d145aa5df9b4150c720b068fb060c077a31"
+          }
+        },
+        {
+          "client_id": "960324163200-484s0mif41msousblo21i18tngstmejv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBom2IXPFDW8ndhxt0gaDNTR4bWRNPvAg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960324163200-484s0mif41msousblo21i18tngstmejv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
