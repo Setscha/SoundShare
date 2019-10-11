@@ -47,20 +47,19 @@ class Home extends StatelessWidget {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
     if (user != null) {
-      return
-        StreamProvider<User>.value(
-          value: databaseService.streamProfile(user),
-          child: Scaffold(
-            key: mainScaffoldKey,
-            body: Body(),
-            drawer: Sidebar(),
-          )
-        );
+      return StreamProvider<User>.value(
+        value: databaseService.streamProfile(user),
+        child: Scaffold(
+          key: mainScaffoldKey,
+          body: Body(),
+          drawer: Sidebar(),
+        )
+      );
     } else {
       return Scaffold(
-          resizeToAvoidBottomInset: false,
-          key: authScaffoldKey,
-          body: AuthenticationPage()
+        resizeToAvoidBottomInset: false,
+        key: authScaffoldKey,
+        body: AuthenticationPage()
       );
     }
   }
