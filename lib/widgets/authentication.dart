@@ -46,5 +46,5 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   Widget getPage() => type == _AuthType.SignIn ? LoginPage() : RegisterPage();
 
-  String getText() => type == _AuthType.SignIn ? "Hast du noch kein Soundshare Konto? Erstelle hier einen!" : "Du hast bereits ein Shoppy Konto? Logge dich hier ein!";
+  String getText() => type == _AuthType.SignIn ? "Hast du noch kein Soundshare Konto? Erstelle hier eines!" : "Du hast bereits ein SoundShare Konto? Logge dich hier ein!";
 }

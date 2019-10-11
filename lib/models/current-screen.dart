@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:soundshare/widgets/shoppinglist-view.dart';
+import 'package:soundshare/widgets/groupinvite-view.dart';
 
 class ScreenModel extends Model {
-  Widget _screen = ShoppingListView();
+  Widget _screen = GroupInviteView();
 
   Widget get screen => _screen;
 
-  String _title = "Einkaufslisten";
+  String _title = "Einladungen";
 
   String get title => _title;
 
