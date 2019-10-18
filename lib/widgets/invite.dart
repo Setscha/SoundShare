@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:soundshare/models/SoundShareColor.dart';
 
 
 class Invite extends StatefulWidget {
@@ -16,6 +17,7 @@ class _InviteState extends State<Invite> {
     return Container(
       child: Card(
         child: Container(
+          color: SoundShareColor.secondary,
           padding: EdgeInsets.all(15),
           child: Align(
             alignment: Alignment.centerLeft,

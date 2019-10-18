@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class SoundShareColor {
   SoundShareColor._();
 
-  static const _primaryValue = 0xFF8c211c;
+  static const _primaryValue = 0xFF2d8ce5;
 
-  static const MaterialColor black = const MaterialColor(
+  static const MaterialColor primary = const MaterialColor(
     _primaryValue,
     const <int, Color>{
       50:  const Color(0xFFe0e0e0),
@@ -21,4 +21,6 @@ class SoundShareColor {
       900: const Color(0xFF000000),
     },
   );
+
+  static const Color secondary = Color(0xFFd8d8d8);
 }

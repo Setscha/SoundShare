@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: "SoundShare",
           theme: ThemeData(
-            primarySwatch: SoundShareColor.black,
+            primarySwatch: SoundShareColor.primary,
           ),
           home: Home()
         )
