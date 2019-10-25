@@ -14,21 +14,21 @@ class DatabaseService {
         .map((snap) => User.fromMap(snap.data));
   }
 
- /* Stream<Group> streamGroupsFromUser() {
+  Stream<Group> streamGroupsFromUser() {
     return _db
         .collection("groups")
         .document('89XF5ZpygJtmMxWQ0Weo')
         .snapshots()
         .map((snap) => Group.fromMap(snap.data));
-  }*/
+  }
 
- Stream<List<Group>> streamGroupsFromUser(uid) {
+/*Stream<List<Group>> streamGroupsFromUser(uid) {
     return _db
         .collection("groups_user")
         .document(uid)
         .snapshots()
         .map((snap) => snap.data['groups'].map((data) => Group.fromMap(data)));
-  }
+  }*/
 
 }
 
