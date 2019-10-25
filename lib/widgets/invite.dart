@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:soundshare/models/SoundShareColor.dart';
 
 
 class Invite extends StatefulWidget {
   final String title;
-  Invite({this.title = "Gruppe #1"});
+  final String creator;
+  Invite({this.title = "Gruppe", this.creator = "Setscha"});
 
   @override
   _InviteState createState() => _InviteState();
@@ -15,31 +15,30 @@ class _InviteState extends State<Invite> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Card(
-        child: Container(
-          color: SoundShareColor.secondary,
-          padding: EdgeInsets.all(15),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+      padding: EdgeInsets.all(15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(widget.title, style: Theme.of(context).textTheme.title),
-                Spacer(),
-                IconButton(
-                  icon: Icon(Icons.check),
-                  onPressed: () {},
-                  color: Colors.green,
-                ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {_showDialog();},
-                  color: Colors.red,
-                )
+                Text("von ${widget.creator}", style: Theme.of(context).textTheme.subhead)
               ],
             ),
           ),
-        ),
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: () {},
+            color: Colors.green,
+          ),
+          IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () {_showDialog();},
+            color: Colors.red,
+          )
+        ],
       ),
     );
   }

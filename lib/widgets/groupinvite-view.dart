@@ -18,8 +18,8 @@ class GroupInviteView extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Invite(title: "Keko Gruppe"),
-          Invite(),
+          Invite(title: "Keko Gruppe", creator: "Tobias Seczer"),
+          Invite(creator: "Alexander Mittermüller"),
         ],
       ),
     );
