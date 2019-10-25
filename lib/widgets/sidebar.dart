@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:soundshare/models/User.dart';
 import 'package:soundshare/models/current-screen.dart';
+import 'package:soundshare/pages/group-view.dart';
 import 'package:soundshare/services/auth.dart';
 import 'package:soundshare/widgets/groupinvite-view.dart';
 
@@ -34,6 +35,7 @@ class _Sidebar extends State<Sidebar> {
             leading: Icon(Icons.group),
             title: Text("Gruppen"),
             onTap: () {
+              ScreenModel.of(context).setScreen(GroupView(), "Gruppen");
               Navigator.pop(context);
             },
           ),

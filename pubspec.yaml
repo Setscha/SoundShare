@@ -34,6 +34,7 @@ dependencies:
   flutter_twitter:
   flutter_facebook_login:
   flutter_signin_button:
+  flutter_spinkit:
 
   rxdart:
   scoped_model:
