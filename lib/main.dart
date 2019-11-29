@@ -7,8 +7,7 @@ import 'package:soundshare/models/current-screen.dart';
 import 'package:soundshare/services/auth.dart';
 import 'package:soundshare/services/db.dart';
 import 'package:soundshare/widgets/sidebar.dart';
-import 'package:soundshare/widgets/authentication.dart';
-import 'package:flutter/rendering.dart';
+import 'package:soundshare/widgets/authentication/authentication.dart';
 import 'models/User.dart';
 
 

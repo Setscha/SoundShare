@@ -7,6 +7,7 @@ import 'package:soundshare/models/current-screen.dart';
 import 'package:soundshare/services/auth.dart';
 import 'package:soundshare/services/db.dart';
 import 'package:soundshare/widgets/invites/invite-view.dart';
+import 'package:soundshare/widgets/settings/settings-view.dart';
 
 import 'group/group-view.dart';
 
@@ -62,7 +63,10 @@ class _Sidebar extends State<Sidebar> {
             leading: Icon(Icons.settings),
             title: Text("Einstellungen"),
             onTap: () {
+              ScreenModel.of(context).setScreen(SettingsView());
               Navigator.pop(context);
+//              Navigator.push(context,
+//                  MaterialPageRoute(builder: (context) => SettingsView()));
             },
           ),
           Spacer(),
