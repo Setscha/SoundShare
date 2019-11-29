@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:soundshare/models/Group.dart';
-import 'package:soundshare/widgets/group-detail.dart';
+import 'package:soundshare/widgets/group/group-detail.dart';
 import 'package:provider/provider.dart';
 
 
 class GroupItem extends StatelessWidget {
+  final index;
+  GroupItem({this.index});
 
   @override
   Widget build(BuildContext context) {
     Group group = Provider.of<Group>(context);
     return group != null ?
-    Container(
-      child: GestureDetector(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return Provider<Group>.value(
+        GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>
+              Provider<Group>.value(
                 value: group,
-                child: GroupDetail()
-            );
-//              return GroupDetail();
-          }),
-        ),
-        child: Card(
+                child: GroupDetail(index: index)),
+              )
+          ),
           child: Container(
             padding: EdgeInsets.all(20),
             child: Align(
@@ -33,15 +31,14 @@ class GroupItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(group.title, style: Theme.of(context).textTheme.title),
-                  Text("${group.members.length + 1} Mitglieder")
+                  Text("${group.members.length} Mitglieder")
                 ],
               ),
             ),
           ),
-        ),
-      ),
-    )
-        :
-    SpinKitDoubleBounce(color: Colors.blueAccent);
+        )
+    :
+    //Nicht anzeigen falls z.B. eine ungültige ID angegeben wurde
+    Container();
   }
 }
