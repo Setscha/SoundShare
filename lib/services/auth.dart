@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:flutter_twitter/flutter_twitter.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:soundshare/main.dart';
@@ -99,7 +99,7 @@ class AuthService {
     switch (type) {
       case AuthenticationType.Facebook:
         /** Native Facebook login screen **/
-        FacebookLoginResult result = await _facebookSignIn.logInWithReadPermissions(["email"]);
+        FacebookLoginResult result = await _facebookSignIn.logIn(["email"]);
 
         if (_ResultHandler.handleFacebookResultError(result)) return null;
 

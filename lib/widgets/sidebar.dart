@@ -1,10 +1,14 @@
+import 'package:custom_navigator/custom_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:soundshare/models/Group.dart';
 import 'package:soundshare/models/User.dart';
 import 'package:soundshare/models/current-screen.dart';
-import 'package:soundshare/pages/group-view.dart';
 import 'package:soundshare/services/auth.dart';
-import 'package:soundshare/widgets/groupinvite-view.dart';
+import 'package:soundshare/services/db.dart';
+import 'package:soundshare/widgets/invites/invite-view.dart';
+
+import 'group/group-view.dart';
 
 
 class Sidebar extends StatefulWidget {
@@ -35,7 +39,13 @@ class _Sidebar extends State<Sidebar> {
             leading: Icon(Icons.group),
             title: Text("Gruppen"),
             onTap: () {
-              ScreenModel.of(context).setScreen(GroupView(), "Gruppen");
+              ScreenModel.of(context).setScreen(StreamProvider<List<Stream<Group>>>.value(
+                  value: databaseService.streamGroupsFromUser(user.uid),
+                  child: CustomNavigator(
+                    home: GroupView(),
+                    pageRoute: PageRoutes.materialPageRoute,
+                  )
+              ));
               Navigator.pop(context);
             },
           ),
@@ -43,7 +53,7 @@ class _Sidebar extends State<Sidebar> {
             leading: Icon(Icons.mail),
             title: Text("Einladungen"),
             onTap: () {
-              ScreenModel.of(context).setScreen(GroupInviteView(), "Einladungen");
+              ScreenModel.of(context).setScreen(InviteView());
               Navigator.pop(context);
             },
           ),

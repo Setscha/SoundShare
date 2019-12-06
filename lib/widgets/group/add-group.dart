@@ -1,8 +1,8 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:soundshare/models/User.dart';
-import 'package:soundshare/validators/email.dart';
-import 'package:provider/provider.dart';
+import 'package:soundshare/services/db.dart';
+import 'package:soundshare/services/info-overlay.dart';
 
 class AddGroup extends StatefulWidget {
   @override
@@ -22,9 +22,43 @@ class _AddGroup extends State<AddGroup> {
     });
   }
 
-  _createGroup() {
+  _createGroup() async {
     print(_members);
     print(_nameTextController.text);
+    final HttpsCallable create = cloudFunctionInstance.getHttpsCallable(
+        functionName: "createGroup"
+    );
+    try {
+      dynamic resp = await create.call(<String, dynamic>{
+        "title": _nameTextController.text,
+      });
+      if(resp.data["status"] == "Failed"){
+        InfoOverlay.showErrorSnackBar("Fehler beim Erstellen der Gruppe");
+      }else {
+        InfoOverlay.showInfoSnackBar("Gruppe ${_nameTextController.text} erstellt");
+        final HttpsCallable invite = cloudFunctionInstance.getHttpsCallable(
+            functionName: "inviteUsers"
+        );
+        try {
+          dynamic resp2 = await invite.call(<String, dynamic>{
+              "targetuids": _members,
+              "groupid": resp.data["groupid"],
+              "groupname": resp.data["groupname"],
+              "from": resp.data["creator"],
+          });
+          if (resp2.data["status"] == "Failed") {
+            InfoOverlay.showErrorSnackBar("Fehler beim Verschicken");
+          } else {
+            InfoOverlay.showInfoSnackBar("Einladungen verschickt");
+            Navigator.pop(context);
+          }
+        }catch(e) {
+          InfoOverlay.showErrorSnackBar("Fehler: ${e.message}");
+        }
+      }
+    }catch (e) {
+      InfoOverlay.showErrorSnackBar("Fehler: ${e.message}");
+    }
   }
 
   @override
