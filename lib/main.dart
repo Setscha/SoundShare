@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       child: MultiProvider(
         providers: [
           StreamProvider<FirebaseUser>.value(value: authService.user),
+          StreamProvider<User>.value(value: authService.userDoc),
         ],
         child: MaterialApp(
           title: "SoundShare",
