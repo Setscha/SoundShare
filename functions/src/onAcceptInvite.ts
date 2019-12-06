@@ -31,13 +31,15 @@ export const acceptInvite = functions.region("europe-west1").https.onCall((data,
                         .doc(uid)
                         .get()
                         .then((snapUser) => {
+                            console.log(snap.data());
+                            console.log(snapUser.data());
                             return db.collection("groups")
                                 .doc(snap.data()["groupid"])
                                 .set({
                                     members: FieldValue.arrayUnion({
                                         displayName: snapUser.data()["displayName"],
                                         uid: uid,
-                                        photoURL: snapUser.data()["photoURL"]
+                                        photoURL: snapUser.data()["photoURL"] || ""
                                     })
                                 }, { merge: true })
                         })
