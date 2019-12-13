@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Keko extends StatefulWidget{
+class NotificationsSettingsView extends StatefulWidget{
   NotificationsettingsView createState()=> NotificationsettingsView();
 }
 
-class NotificationsettingsView extends State<Keko> {
+class NotificationsettingsView extends State<NotificationsSettingsView> {
 
   String img = "https://www.indiewire.com/wp-content/uploads/2019/05/shutterstock_8999492b.jpg?w=780";
   bool _notifications = true;
@@ -39,7 +39,7 @@ class NotificationsettingsView extends State<Keko> {
                       children: <Widget>[
 
                         SwitchListTile(
-                          title: const Text('Gruppeneinladungen'),
+                          title: const Text('Pushbenachrichtigungen'),
                           value: _group,
                           onChanged: (bool value) {
                             setState(() {

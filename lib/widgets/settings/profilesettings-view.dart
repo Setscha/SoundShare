@@ -102,16 +102,13 @@ class _ProfileSettingsView extends State<ProfileSettingsView> {
       leading: Icon(icon),
       title: Text(name),
       onTap: () async{
-        print("keeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeek");
 
         File file = await cameraService.pickImageFile(imgSrc);
-        print("keeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeek");
 
         setState(() {
           _imageFile = file;
         });
 
-        print("keeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeek");
         File cropped = await ImageCropper.cropImage(sourcePath: _imageFile.path, cropStyle: CropStyle.circle, aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1));
         if (cropped != null) {
           setState(() {

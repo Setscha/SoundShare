@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:soundshare/models/User.dart';
 import 'package:soundshare/widgets/settings/notificationsettings-view.dart';
 import 'package:soundshare/services/auth.dart';
+import 'package:soundshare/widgets/settings/privacypolicy-view.dart';
 import 'package:soundshare/widgets/settings/profilesettings-view.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -140,19 +141,6 @@ class Test extends StatelessWidget {
                       )
                     },
                   ),
-//                  ListTile(
-//                    leading: Icon(Icons.view_agenda),
-//                    title: Text('Ansicht'),
-//                    trailing: Icon(Icons.keyboard_arrow_right),
-//                    onTap: () => {
-//                      Navigator.push(
-//                          context,
-//                          MaterialPageRoute(
-//                              builder: (context) => ShoppinglistsettingsView()
-//                          )
-//                      )
-//                    },
-//                  ),
                   ListTile(
                     leading: Icon(Icons.notifications),
                     title: Text('Benachrichtigungen'),
@@ -161,7 +149,7 @@ class Test extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Keko()
+                              builder: (context) => NotificationsSettingsView()
                           )
                       )
                     },
@@ -171,21 +159,12 @@ class Test extends StatelessWidget {
                     title: Text('Datenschutz'),
                     trailing: Icon(Icons.keyboard_arrow_right),
                     onTap: () => {
-                      _launchURL("https://soundshare.gq/impressum.html")
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.bug_report),
-                    title: Text('Fehler melden'),
-                    trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: () => {},
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.info),
-                    title: Text('Info'),
-                    trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: () => {
-                      _launchURL("https://soundshare.gq")
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PrivacyPolicyView()
+                          )
+                      )
                     },
                   ),
 
