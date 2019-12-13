@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:soundshare/models/Song.dart';
+import 'package:provider/provider.dart';
+import 'package:soundshare/models/Group.dart';
 
 class PlayerHistory extends StatelessWidget {
 
-  List<Song> songs = [
-    Song(id: "KWEIh23K", songurl: "http://test.com", title: "Dubstep"),
-    Song(id: "IJO343JN3mj", songurl: "http://test.com", title: "Rofl"),
-    Song(id: "Kso38Jnuf23D", songurl: "http://test.com", title: "Kek"),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    List<String> songs = Provider.of<Group>(context).history;
+    return songs.length > 0 ? ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Row(
             children: <Widget>[
-              Text("${songs[index].title}"),
-              Spacer(),
-              IconButton(
-                icon: Icon(Icons.play_circle_outline),
-                onPressed: () {},
-              )
+              Text("${songs[index]}")
             ],
           ),
         );
       }
-    );
+    ) : Center(child: Text("Keine Songs im Verlauf"));
   }
 }

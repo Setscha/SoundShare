@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Song {
-  final String id;
-  final String title;
-  final String songurl;
+  final String name;
+  final String url;
 
-  Song({this.id, this.title, this.songurl});
+  Song({this.name, this.url});
 
   factory Song.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data;
 
     return Song(
-      id: doc.documentID,
-      title: data["title"],
-      songurl: data["songurl"]
+      name: data["name"],
+      url: data["url"]
     );
   }
 
@@ -21,8 +19,8 @@ class Song {
     data = data ?? { };
 
     return Song(
-        title: data["title"],
-        songurl: data["songurl"]
+        name: data["name"],
+        url: data["url"]
     );
   }
 }
