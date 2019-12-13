@@ -7,6 +7,7 @@ import 'package:soundshare/models/current-screen.dart';
 import 'package:soundshare/services/auth.dart';
 import 'package:soundshare/services/db.dart';
 import 'package:soundshare/widgets/invites/invite-view.dart';
+import 'package:soundshare/widgets/settings/settings-view.dart';
 
 import 'group/group-view.dart';
 
@@ -16,7 +17,7 @@ class Sidebar extends StatefulWidget {
   _Sidebar createState() => _Sidebar();
 }
 class _Sidebar extends State<Sidebar> {
-  String img = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.tractionwise.com%2Fwp-content%2Fuploads%2F2016%2F04%2FIcon-Person.png&f=1&nofb=1";
+  String img = "https://cdn3.iconfinder.com/data/icons/essentials-vol-1-1/512/Headphones-512.png";
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,10 @@ class _Sidebar extends State<Sidebar> {
             leading: Icon(Icons.settings),
             title: Text("Einstellungen"),
             onTap: () {
-              Navigator.pop(context);
+//              ScreenModel.of(context).setScreen(SettingsView());
+//              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SettingsView()));
             },
           ),
           Spacer(),
