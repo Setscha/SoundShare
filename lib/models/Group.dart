@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'PublicUser.dart';
+import 'Song.dart';
 
 
 class Group {
@@ -7,9 +8,11 @@ class Group {
   final PublicUser creator;
   final int memberCount;
   final List<PublicUser> members;
+  final List<String> history;
+  final List<Song> songs;
   final String id;
 
-  Group({this.title, this.creator, this.memberCount, this.members, this.id});
+  Group({this.title, this.creator, this.memberCount, this.members, this.id, this.history, this.songs});
 
   factory Group.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data ?? { };
@@ -18,7 +21,9 @@ class Group {
         id: doc.documentID,
         title: data["title"],
         creator: PublicUser.fromMap(data["creator"]),
-        members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList()
+        history: List.from(data["history"] ?? []),
+        members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList(),
+        songs: List.from(data["songs"] ?? []).map((song) => Song.fromMap(song)).toList()
     );
   }
 
@@ -30,7 +35,9 @@ class Group {
     return Group(
         title: data["title"],
         creator: PublicUser.fromMap(data["creator"]),
-        members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList()
+        history: List.from(data["history"] ?? []),
+        members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList(),
+        songs: List.from(data["songs"] ?? []).map((song) => Song.fromMap(song)).toList()
     );
   }
 }
