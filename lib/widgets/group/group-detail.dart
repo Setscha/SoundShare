@@ -5,8 +5,10 @@ import 'package:soundshare/models/Group.dart';
 import 'package:soundshare/models/User.dart';
 import 'package:soundshare/services/db.dart';
 import 'package:soundshare/services/info-overlay.dart';
+import 'package:soundshare/widgets/player/group-player.dart';
 import 'package:soundshare/widgets/group/group-userlist.dart';
 import 'package:provider/provider.dart';
+import 'package:soundshare/widgets/player/player_history.dart';
 
 class GroupDetail extends StatefulWidget {
   final index;
@@ -43,8 +45,8 @@ class _GroupDetail extends State<GroupDetail> {
         ),
         body: TabBarView(
           children: [
-            Text("Einkaufslisten der Gruppe"),
-            Text("Statistiken der Gruppe"),
+            GroupPlayer(),
+            PlayerHistory(),
             GroupUserList()
           ],
         ),
