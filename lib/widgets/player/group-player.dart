@@ -35,23 +35,6 @@ class GroupPlayer extends StatelessWidget {
           tooltip: "Neue Gruppe erstellen",
           onPressed: () => {}
       ),
-      bottomNavigationBar: Container(
-        color: Theme.of(context).colorScheme.primary,
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-        child: Row(
-            children: [
-              Text(
-                "sadas",
-                style: TextStyle(fontSize: 16),
-              ),
-              Spacer(),
-              IconButton(
-                icon: Icon(Icons.play_circle_outline),
-                onPressed: () {},
-              )
-            ]
-        ),
-      )
     );
   }
 }
