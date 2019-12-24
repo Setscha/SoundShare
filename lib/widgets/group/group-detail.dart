@@ -99,6 +99,23 @@ class GroupMenu extends StatelessWidget {
           }catch(e) {
             InfoOverlay.showErrorSnackBar("Fehler: ${e.message}");
           }
+        }else if(result == GroupAction.delete) {
+          try {
+            final HttpsCallable delete = cloudFunctionInstance.getHttpsCallable(
+                functionName: "deleteGroup"
+            );
+            dynamic resp = await delete.call(<String, dynamic>{
+              "groupid": group.id
+            });
+            if (resp.data["status"] == "Failed") {
+              InfoOverlay.showErrorSnackBar("Fehler beim Löschen der Gruppe");
+            } else {
+              InfoOverlay.showInfoSnackBar("Gruppe gelöscht");
+              Navigator.pop(context);
+            }
+          }catch(e) {
+            InfoOverlay.showErrorSnackBar("Fehler: ${e.message}");
+          }
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<GroupAction>>[

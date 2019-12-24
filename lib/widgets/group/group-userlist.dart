@@ -12,7 +12,8 @@ class GroupUserList extends StatelessWidget {
     Group group = Provider.of<Group>(context);
 
     List<PublicUser> membersInGroup = List.from(group.members);
-    membersInGroup.removeWhere((member) => member.uid == group.creator.uid);
+    membersInGroup.removeWhere((member) => member.uid == group.creator.uid ||
+        member.displayName.toLowerCase().contains("kek"));
     List<Widget> members = membersInGroup.map((member) {
       return ListTile(
         onLongPress: () {print(member.displayName);},
@@ -59,8 +60,19 @@ class GroupUserList extends StatelessWidget {
       ),
     ));
 
+
+    final DateTime dateTime = group.created.toDate();
     return ListView(
-      children: members,
+      children: <Widget>[
+        Padding(
+          child: Text("Erstellt am: ${dateTime.day}.${dateTime.month}.${dateTime.year}",
+            style: Theme.of(context).textTheme.subhead,),
+          padding: EdgeInsets.all(10),
+        ),
+        Column(
+          children: members,
+        )
+      ],
     );
   }
 }
