@@ -44,6 +44,18 @@ class _GroupDetail extends State<GroupDetail> {
     musicPlayer.stop();
   }
 
+  void changeSong(String url) {
+    musicPlayer.play(
+        MusicItem(
+            trackName: 'Knossi King',
+            albumName: 'Sample Album',
+            artistName: 'Sample Artist',
+            url: url,
+            duration: Duration()
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //FIXME: Provider not found
@@ -69,8 +81,8 @@ class _GroupDetail extends State<GroupDetail> {
         ),
         body: TabBarView(
           children: [
-            GroupPlayer(),
-            PlayerHistory(),
+            GroupPlayer(notifyParent: changeSong,),
+            PlayerHistory(notifyParent: changeSong,),
             GroupUserList()
           ],
         ),

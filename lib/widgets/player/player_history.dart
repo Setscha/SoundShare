@@ -3,8 +3,17 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:soundshare/models/Group.dart';
 
-class PlayerHistory extends StatelessWidget {
+class PlayerHistory extends StatefulWidget {
+  final Function notifyParent;
 
+  PlayerHistory({@required this.notifyParent});
+
+
+  @override
+  _PlayerHistoryState createState() => _PlayerHistoryState();
+}
+
+class _PlayerHistoryState extends State<PlayerHistory> {
   @override
   Widget build(BuildContext context) {
     List<String> songs = Provider.of<Group>(context).history;
