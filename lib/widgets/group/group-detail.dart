@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player/music_player.dart';
 import 'package:soundshare/models/Group.dart';
 import 'package:soundshare/models/User.dart';
 import 'package:soundshare/services/db.dart';
@@ -19,6 +20,29 @@ class GroupDetail extends StatefulWidget {
 enum GroupAction { edit, leave, delete}
 
 class _GroupDetail extends State<GroupDetail> {
+
+  MusicPlayer musicPlayer;
+  bool playing = false;
+  bool paused = true;
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+    print(paused);
+  }
+
+  // Initializing the Music Player and adding a single [PlaylistItem]
+  Future<void> initPlatformState() async {
+    musicPlayer = MusicPlayer();
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    musicPlayer.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,19 +78,51 @@ class _GroupDetail extends State<GroupDetail> {
           color: Theme.of(context).colorScheme.primary,
           padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           child: Row(
-              children: [
-                Text(
-                  "sadas",
-                  style: TextStyle(fontSize: 16),
-                ),
-                Spacer(),
-                IconButton(
-                  icon: Icon(Icons.play_circle_outline),
-                  onPressed: () {},
-                )
-              ]
+            children: [
+              Text(
+                "sadas",
+                style: TextStyle(fontSize: 16),
+              ),
+              Spacer(),
+              IconButton(
+                icon: Icon(paused ? Icons.play_arrow : Icons.pause),
+                onPressed: () {
+                  if(!playing || paused) {
+                    if(paused && playing) {
+                      print("resuming");
+                      musicPlayer.resume();
+                      setState(() {
+                        paused = false;
+                      });
+                    }else {
+                      print("playing");
+                      musicPlayer.play(
+                          MusicItem(
+                              trackName: 'Knossi King',
+                              albumName: 'Sample Album',
+                              artistName: 'Sample Artist',
+                              url: 'https://firebasestorage.googleapis.com/v0/b/listassist-433b3.appspot.com/o/Knossi_%C3%BCberf%C3%A4llt_eine_Tankstelle.mp3?alt=media&token=98bb0f97-1103-4265-9059-6774008bc4e7',
+                              coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
+                              duration: Duration(seconds: 30)
+                          )
+                      );
+                      setState(() {
+                        playing = true;
+                        paused = false;
+                      });
+                    }
+                  }else {
+                    print("stopping");
+                    musicPlayer.pause();
+                    setState(() {
+                      paused = true;
+                    });
+                  }
+                }
+              ),
+            ]
           ),
-        )
+        ),
       ),
     );
   }
