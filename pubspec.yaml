@@ -32,7 +32,7 @@ dependencies:
   cloud_firestore:
   cloud_functions:
 
-  # auth
+# auth
   google_sign_in:
   flutter_twitter_login:
   flutter_facebook_login:
@@ -54,8 +54,11 @@ dependencies:
   dio:
   progress_indicator_button:
   music_player:
+  file_picker:
+  audioplayers:
 
-  # design
+
+      # design
   fluttertoast:
   badges:
   progress_dialog:

@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:soundshare/models/Group.dart';
 import 'package:soundshare/models/Invite.dart';
+import 'package:soundshare/models/Song.dart';
 import 'package:soundshare/models/User.dart';
 
 class DatabaseService {
@@ -78,6 +79,14 @@ class DatabaseService {
         .collection('users')
         .document(uid)
         .updateData({'email': newEmail});
+  }
+
+
+  Future<void> addSongToGroup(Group group, Song song) {
+    return _db
+        .collection("groups")
+        .document(group.id)
+        .setData({"songs": FieldValue.arrayUnion([{"name": song.name, "url": song.url}])});
   }
 
 }

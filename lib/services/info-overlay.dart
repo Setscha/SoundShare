@@ -43,6 +43,8 @@ class InfoOverlay {
 
   static ProgressDialog showDynamicProgressDialog(BuildContext context, String text) {
     ProgressDialog progressDialog = ProgressDialog(context,type: ProgressDialogType.Download, isDismissible: true);
+    progressDialog.show();
+
     progressDialog.style(
         message: text,
         backgroundColor: Theme.of(context).brightness == Brightness.dark ? Theme.of(context).primaryColor : Colors.white,
@@ -57,4 +59,5 @@ class InfoOverlay {
     );
     return progressDialog;
   }
+
 }
