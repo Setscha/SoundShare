@@ -86,7 +86,7 @@ class DatabaseService {
     return _db
         .collection("groups")
         .document(group.id)
-        .setData({"songs": FieldValue.arrayUnion([{"name": song.name, "url": song.url}])});
+        .setData({"songs": FieldValue.arrayUnion([{"name": song.name, "url": song.url}])}, merge: true);
   }
 
 }

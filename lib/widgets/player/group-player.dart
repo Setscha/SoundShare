@@ -13,7 +13,16 @@ import 'package:soundshare/services/db.dart';
 import 'package:soundshare/services/info-overlay.dart';
 import 'package:soundshare/services/storage.dart';
 
-class GroupPlayer extends StatelessWidget {
+class GroupPlayer extends StatefulWidget {
+  final Function notifyParent;
+
+  GroupPlayer({@required this.notifyParent});
+
+  @override
+  _GroupPlayerState createState() => _GroupPlayerState();
+}
+
+class _GroupPlayerState extends State<GroupPlayer> {
   TextEditingController _textFieldController = TextEditingController();
 
   @override
@@ -31,7 +40,7 @@ class GroupPlayer extends StatelessWidget {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.play_circle_outline),
-                    onPressed: () {},
+                    onPressed: () => widget.notifyParent(group.songs[index].url, group.songs[index].name),
                   )
                 ],
               ),
@@ -47,14 +56,18 @@ class GroupPlayer extends StatelessWidget {
               File file = await FilePicker.getFile(type: FileType.AUDIO);
 
               String returnVal = await _displayDialog(context);
-              if (returnVal == null) returnVal = path.basename(file.path).replaceAll(" ", "_");
+              String storagePath = "";
+              if (returnVal == null || returnVal.isEmpty) {
+                returnVal = path.basename(file.path);
+                storagePath = returnVal.replaceAll(" ", "_");
+              }
 
               dialog = InfoOverlay.showDynamicProgressDialog(context, "Lied wird hochgeladen..");
 
               /// Upload to firestore
               var task = storageService.upload(
                   file,
-                  "groups/${group.id}/songs/$returnVal",
+                  "groups/${group.id}/songs/$storagePath",
                   concatString: "");
               /// execute task to upload and display current progress
               task.events.listen((event) async {
@@ -66,8 +79,9 @@ class GroupPlayer extends StatelessWidget {
               /// wait for task to finish to proceed going back
               await task.onComplete;
 
-              databaseService.addSongToGroup(group, Song(name: returnVal, url: await task.lastSnapshot.ref.getDownloadURL()));
-              await task.events.last;
+              await databaseService.addSongToGroup(group, Song(name: returnVal, url: await task.lastSnapshot.ref.getDownloadURL()));
+
+              dialog.dismiss();
             } catch (e) {
               print(e.toString());
               if (dialog != null) {
@@ -108,6 +122,4 @@ class GroupPlayer extends StatelessWidget {
           );
         });
   }
-
-
 }
