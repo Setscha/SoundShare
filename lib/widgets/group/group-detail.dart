@@ -24,6 +24,7 @@ class _GroupDetail extends State<GroupDetail> {
   MusicPlayer musicPlayer;
   bool playing = false;
   bool paused = true;
+  String currentSongName;
 
   @override
   void initState() {
@@ -44,16 +45,23 @@ class _GroupDetail extends State<GroupDetail> {
     musicPlayer.stop();
   }
 
-  void changeSong(String url) {
+  void changeSong(String url, String name) {
+    print(url);
     musicPlayer.play(
         MusicItem(
-            trackName: 'Knossi King',
+            trackName: name,
             albumName: 'Sample Album',
             artistName: 'Sample Artist',
             url: url,
+            coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
             duration: Duration()
         )
     );
+    setState(() {
+      playing = true;
+      paused = false;
+      currentSongName = name;
+    });
   }
 
   @override
@@ -92,7 +100,7 @@ class _GroupDetail extends State<GroupDetail> {
           child: Row(
             children: [
               Text(
-                "sadas",
+                currentSongName ?? 'Select a Song',
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
@@ -104,22 +112,6 @@ class _GroupDetail extends State<GroupDetail> {
                       print("resuming");
                       musicPlayer.resume();
                       setState(() {
-                        paused = false;
-                      });
-                    }else {
-                      print("playing");
-                      musicPlayer.play(
-                          MusicItem(
-                              trackName: 'Knossi King',
-                              albumName: 'Sample Album',
-                              artistName: 'Sample Artist',
-                              url: 'https://firebasestorage.googleapis.com/v0/b/listassist-433b3.appspot.com/o/Knossi_%C3%BCberf%C3%A4llt_eine_Tankstelle.mp3?alt=media&token=98bb0f97-1103-4265-9059-6774008bc4e7',
-                              coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
-                              duration: Duration(seconds: 30)
-                          )
-                      );
-                      setState(() {
-                        playing = true;
                         paused = false;
                       });
                     }

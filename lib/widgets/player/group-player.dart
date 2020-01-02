@@ -40,7 +40,7 @@ class _GroupPlayerState extends State<GroupPlayer> {
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.play_circle_outline),
-                    onPressed: () => widget.notifyParent(group.songs[index].url),
+                    onPressed: () => widget.notifyParent(group.songs[index].url, group.songs[index].name),
                   )
                 ],
               ),
