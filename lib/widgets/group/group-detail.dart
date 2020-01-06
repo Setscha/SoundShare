@@ -69,7 +69,7 @@ class _GroupDetail extends State<GroupDetail> {
         print("resume");
         musicPlayer.resume();
       }
-    } else {
+    } else if (_group.playing && !_group.paused) {
       musicPlayer.play(
           MusicItem(
               trackName: _group.currentName,
