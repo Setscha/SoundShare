@@ -23,6 +23,7 @@ class _GroupDetail extends State<GroupDetail> {
 
   MusicPlayer musicPlayer;
   Group _group;
+  bool _isPlaying = false;
 
   @override
   void initState() {
@@ -33,12 +34,14 @@ class _GroupDetail extends State<GroupDetail> {
   // Initializing the Music Player and adding a single [PlaylistItem]
   Future<void> initPlatformState() async {
     musicPlayer = MusicPlayer();
+    musicPlayer.onIsPlaying = () => _isPlaying = true;
   }
 
 
   @override
   void dispose() {
     super.dispose();
+    _isPlaying = false;
     musicPlayer.stop();
   }
 
@@ -76,7 +79,10 @@ class _GroupDetail extends State<GroupDetail> {
         musicPlayer.resume();
       }
     }else {
-      if (!_group.paused) {
+      if (_isPlaying) {
+        print("stopping");
+        musicPlayer.pause();
+      } else {
         musicPlayer.play(
             MusicItem(
                 trackName: _group.currentName,
@@ -87,9 +93,6 @@ class _GroupDetail extends State<GroupDetail> {
                 duration: Duration()
             )
         );
-      } else {
-        print("stopping");
-        musicPlayer.pause();
       }
     }
 
