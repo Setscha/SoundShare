@@ -61,27 +61,25 @@ class _GroupDetail extends State<GroupDetail> {
     print(_group.currentURL);
     User user = Provider.of<User>(context);
 
-    if(!_group.playing || _group.paused) {
-      if(_group.paused && _group.playing) {
-        print("resuming");
-        musicPlayer.resume();
-      }
-    }else {
-      if (lastURL == _group.currentURL) {
-        print("stopping");
+    if (lastURL == _group.currentURL) {
+      if (_group.paused) {
+        print("pause");
         musicPlayer.pause();
       } else {
-        musicPlayer.play(
-            MusicItem(
-                trackName: _group.currentName,
-                albumName: 'Sample Album',
-                artistName: 'Sample Artist',
-                url: _group.currentURL,
-                coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
-                duration: Duration()
-            )
-        );
+        print("resume");
+        musicPlayer.resume();
       }
+    } else {
+      musicPlayer.play(
+          MusicItem(
+              trackName: _group.currentName,
+              albumName: 'Sample Album',
+              artistName: 'Sample Artist',
+              url: _group.currentURL,
+              coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
+              duration: Duration()
+          )
+      );
     }
 
     return _group == null ? Container() : DefaultTabController(

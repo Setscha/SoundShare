@@ -30,7 +30,7 @@ class Group {
         songs: List.from(data["songs"] ?? []).map((song) => Song.fromMap(song)).toList(),
         created: data["created"],
         playing: data["playing"] ?? false,
-        paused: data["paused"] ?? false,
+        paused: data["paused"] ?? true,
         currentName: data["currentName"],
         currentURL: data["currentURL"]
     );
