@@ -39,6 +39,8 @@ class DatabaseService {
 
   Future<void> updateGroup(Group group) {
     print("----- UPDATED GROUP -----");
+    List<String> history = List.from(group.history);
+    history.add(group.currentName);
     return _db
         .collection("groups")
         .document(group.id)
@@ -47,7 +49,7 @@ class DatabaseService {
           "paused": group.paused,
           "currentName": group.currentName,
           "currentURL": group.currentURL,
-          "history": FieldValue.arrayUnion([group.currentName])
+          "history": history
         }, merge: true);
   }
 
