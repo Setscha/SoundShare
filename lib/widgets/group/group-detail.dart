@@ -23,7 +23,7 @@ class _GroupDetail extends State<GroupDetail> {
 
   MusicPlayer musicPlayer;
   Group _group;
-  bool _isPlaying = false;
+  String lastURL = "";
 
   @override
   void initState() {
@@ -34,14 +34,12 @@ class _GroupDetail extends State<GroupDetail> {
   // Initializing the Music Player and adding a single [PlaylistItem]
   Future<void> initPlatformState() async {
     musicPlayer = MusicPlayer();
-    musicPlayer.onIsPlaying = () => _isPlaying = true;
   }
 
 
   @override
   void dispose() {
     super.dispose();
-    _isPlaying = false;
     musicPlayer.stop();
   }
 
@@ -54,16 +52,6 @@ class _GroupDetail extends State<GroupDetail> {
       _group.currentURL = url;
       databaseService.updateGroup(_group);
     });
-    musicPlayer.play(
-        MusicItem(
-            trackName: _group.currentName,
-            albumName: 'Sample Album',
-            artistName: 'Sample Artist',
-            url: _group.currentURL,
-            coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
-            duration: Duration()
-        )
-    );
   }
 
   @override
@@ -79,7 +67,7 @@ class _GroupDetail extends State<GroupDetail> {
         musicPlayer.resume();
       }
     }else {
-      if (_isPlaying) {
+      if (lastURL == _group.currentURL) {
         print("stopping");
         musicPlayer.pause();
       } else {
