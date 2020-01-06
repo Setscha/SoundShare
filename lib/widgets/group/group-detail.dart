@@ -44,12 +44,12 @@ class _GroupDetail extends State<GroupDetail> {
 
   void changeSong(String url, String name) {
     print(url);
-    _group.playing = true;
-    _group.paused = false;
-    _group.currentName = name;
-    _group.currentURL = url;
-    databaseService.updateGroup(_group);
     setState(() {
+      _group.playing = true;
+      _group.paused = false;
+      _group.currentName = name;
+      _group.currentURL = url;
+      databaseService.updateGroup(_group);
     });
     musicPlayer.play(
         MusicItem(
@@ -67,6 +67,7 @@ class _GroupDetail extends State<GroupDetail> {
   Widget build(BuildContext context) {
     _group = Provider.of<List<Group>>(context)[widget.index];
     print(_group.currentName);
+    print(_group.currentURL);
     User user = Provider.of<User>(context);
 
     return _group == null ? Container() : DefaultTabController(

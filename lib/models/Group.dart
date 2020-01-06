@@ -31,7 +31,7 @@ class Group {
         created: data["created"],
         playing: data["playing"] ?? false,
         paused: data["paused"] ?? false,
-        currentName: data["currentTitle"],
+        currentName: data["currentName"],
         currentURL: data["currentURL"]
     );
   }
