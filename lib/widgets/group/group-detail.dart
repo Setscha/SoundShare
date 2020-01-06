@@ -22,15 +22,12 @@ enum GroupAction { edit, leave, delete}
 class _GroupDetail extends State<GroupDetail> {
 
   MusicPlayer musicPlayer;
-  bool playing = false;
-  bool paused = true;
-  String currentSongName;
+  Group _group;
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
-    print(paused);
   }
 
   // Initializing the Music Player and adding a single [PlaylistItem]
@@ -47,36 +44,39 @@ class _GroupDetail extends State<GroupDetail> {
 
   void changeSong(String url, String name) {
     print(url);
+    _group.playing = true;
+    _group.paused = false;
+    _group.currentName = name;
+    _group.currentURL = url;
+    databaseService.updateGroup(_group);
+    setState(() {
+    });
     musicPlayer.play(
         MusicItem(
-            trackName: name,
+            trackName: _group.currentName,
             albumName: 'Sample Album',
             artistName: 'Sample Artist',
-            url: url,
+            url: _group.currentURL,
             coverUrl: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.qR8pkpLCrJ4gmSI3m-SsRgHaKY%26pid%3DApi&f=1',
             duration: Duration()
         )
     );
-    setState(() {
-      playing = true;
-      paused = false;
-      currentSongName = name;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Group group = Provider.of<List<Group>>(context)[widget.index];
+    _group = Provider.of<List<Group>>(context)[widget.index];
+    print(_group.currentName);
     User user = Provider.of<User>(context);
 
-    return DefaultTabController(
+    return _group == null ? Container() : DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: Text(group.title),
+          title: Text(_group.title),
           actions: <Widget>[
-            GroupMenu(uid: user.uid, group: group)
+            GroupMenu(uid: user.uid, group: _group)
           ],
           bottom: TabBar(
             tabs: [
@@ -99,26 +99,26 @@ class _GroupDetail extends State<GroupDetail> {
           child: Row(
             children: [
               Text(
-                currentSongName ?? 'Select a Song',
+                _group.currentName ?? 'Select a Song',
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
               IconButton(
-                icon: Icon(paused ? Icons.play_arrow : Icons.pause),
+                icon: Icon(_group.paused ? Icons.play_arrow : Icons.pause),
                 onPressed: () {
-                  if(!playing || paused) {
-                    if(paused && playing) {
+                  if(!_group.playing || _group.paused) {
+                    if(_group.paused && _group.playing) {
                       print("resuming");
                       musicPlayer.resume();
                       setState(() {
-                        paused = false;
+                        _group.paused = false;
                       });
                     }
                   }else {
                     print("stopping");
                     musicPlayer.pause();
                     setState(() {
-                      paused = true;
+                      _group.paused = true;
                     });
                   }
                 }

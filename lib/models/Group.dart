@@ -6,14 +6,17 @@ import 'Song.dart';
 class Group {
   final String title;
   final PublicUser creator;
-  final int memberCount;
   final List<PublicUser> members;
   final List<String> history;
   final List<Song> songs;
   final String id;
   final Timestamp created;
+  String currentURL;
+  String currentName;
+  bool playing;
+  bool paused;
 
-  Group({this.title, this.creator, this.memberCount, this.members, this.id, this.history, this.songs, this.created});
+  Group({this.title, this.creator, this.members, this.id, this.history, this.songs, this.created, this.currentName, this.currentURL, this.paused, this.playing});
 
   factory Group.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data ?? { };
@@ -25,7 +28,11 @@ class Group {
         history: List.from(data["history"] ?? []),
         members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList(),
         songs: List.from(data["songs"] ?? []).map((song) => Song.fromMap(song)).toList(),
-        created: data["created"]
+        created: data["created"],
+        playing: data["playing"] ?? false,
+        paused: data["paused"] ?? false,
+        currentName: data["currentTitle"],
+        currentURL: data["currentURL"]
     );
   }
 
@@ -40,7 +47,11 @@ class Group {
         history: List.from(data["history"] ?? []),
         members: List.from(data["members"] ?? []).map((member) => PublicUser.fromMap(member)).toList(),
         songs: List.from(data["songs"] ?? []).map((song) => Song.fromMap(song)).toList(),
-        created: data["created"]
+        created: data["created"],
+        playing: data["playing"],
+        paused: data["paused"],
+        currentName: data["currentTitle"],
+        currentURL: data["currentURL"]
     );
   }
 }

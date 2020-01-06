@@ -37,6 +37,20 @@ class DatabaseService {
     });
   }
 
+  Future<void> updateGroup(Group group) {
+    print("----- UPDATED GROUP -----");
+    return _db
+        .collection("groups")
+        .document(group.id)
+        .setData({
+          "playing": group.playing,
+          "paused": group.paused,
+          "currentName": group.currentName,
+          "currentURL": group.currentURL,
+          "history": FieldValue.arrayUnion([group.currentName])
+        }, merge: true);
+  }
+
   Stream<List<Invite>> streamInvites(String uid) {
     return _db
         .collection("invites")
