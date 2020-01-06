@@ -66,8 +66,7 @@ class _GroupDetail extends State<GroupDetail> {
 
   @override
   Widget build(BuildContext context) {
-    //FIXME: Provider not found
-    Group group = Provider.of<Group>(context);
+    Group group = Provider.of<List<Group>>(context)[widget.index];
     User user = Provider.of<User>(context);
 
     return DefaultTabController(
@@ -89,9 +88,9 @@ class _GroupDetail extends State<GroupDetail> {
         ),
         body: TabBarView(
           children: [
-            GroupPlayer(notifyParent: changeSong,),
-            PlayerHistory(notifyParent: changeSong,),
-            GroupUserList()
+            GroupPlayer(notifyParent: changeSong, index: widget.index),
+            PlayerHistory(notifyParent: changeSong, index: widget.index),
+            GroupUserList(index: widget.index)
           ],
         ),
         bottomNavigationBar: Container(

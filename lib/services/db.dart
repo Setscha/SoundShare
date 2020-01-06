@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:soundshare/models/Group.dart';
 import 'package:soundshare/models/Invite.dart';
 import 'package:soundshare/models/Song.dart';
@@ -19,43 +20,21 @@ class DatabaseService {
         .map((snap) => User.fromMap(snap.data));
   }
 
-  Stream<List<Stream<Group>>> streamGroupsFromUser(String uid) {
-    print(uid);
-    return _db
+  Stream<List<Group>> streamGroupsFromUser(String uid) {
+    print("----- READ GROUPS -----");
+    return Observable(_db
         .collection("groups_user")
         .document(uid)
-        .snapshots()
-        .map((list) {
-      return list.data != null ? list.data["groups"]
-          .map<Stream<Group>>((groupId) => _db
+        .snapshots()).switchMap((DocumentSnapshot snap) {
+      if(snap.data == null || snap.data["groups"] == null || snap.data["groups"].length == 0){
+        return Stream.value(List<Group>.from([]));
+      }
+      return _db
           .collection("groups")
-          .document(groupId)
+          .where(FieldPath.documentId, whereIn: snap.data["groups"])
           .snapshots()
-          .map<Group>((snap) => Group.fromFirestore(snap))
-      ).toList() : List<Stream<Group>>();
+          .map((snap) => snap.documents.map((d) => Group.fromFirestore(d)).toList());
     });
-
-//    return _db
-//        .collection("groups_user")
-//        .document(uid)
-//        .snapshots()
-//        .map<List<Group>>((list) {
-//          print(list);
-//          print(list.data);
-//          return list.data != null ? list.data["groups"]
-//          .map<Stream<Group>>((groupId) => _db
-//            .collection("groups")
-//            .document(groupId)
-//            .snapshots()
-//            .map<Group>((snap) => Group.fromMap(snap.data))
-//          ).toList() : List<Group>();
-//    });
-
-//    return db
-//            .collection("groups")
-//            .document('89XF5ZpygJtmMxWQ0Weo')
-//            .snapshots()
-//            .map((snap) => Group.fromMap(snap.data));
   }
 
   Stream<List<Invite>> streamInvites(String uid) {

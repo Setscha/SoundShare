@@ -28,7 +28,7 @@ class FirstView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    return StreamProvider<List<Stream<Group>>>.value(
+    return StreamProvider<List<Group>>.value(
         value: databaseService.streamGroupsFromUser(user.uid),
         child: CustomNavigator(
           home: GroupView(),

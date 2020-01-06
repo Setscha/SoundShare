@@ -5,8 +5,9 @@ import 'package:soundshare/models/Group.dart';
 
 class PlayerHistory extends StatefulWidget {
   final Function notifyParent;
+  final int index;
 
-  PlayerHistory({@required this.notifyParent});
+  PlayerHistory({@required this.notifyParent, this.index});
 
 
   @override
@@ -16,7 +17,7 @@ class PlayerHistory extends StatefulWidget {
 class _PlayerHistoryState extends State<PlayerHistory> {
   @override
   Widget build(BuildContext context) {
-    List<String> songs = Provider.of<Group>(context).history;
+    List<String> songs = Provider.of<List<Group>>(context)[widget.index].history;
     return songs.length > 0 ? ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {

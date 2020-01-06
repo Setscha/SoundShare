@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:path/path.dart' as path;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:soundshare/models/Group.dart';
-import 'package:soundshare/models/PublicUser.dart';
 import 'package:provider/provider.dart';
 import 'package:soundshare/models/Song.dart';
 import 'package:soundshare/services/db.dart';
@@ -15,8 +12,9 @@ import 'package:soundshare/services/storage.dart';
 
 class GroupPlayer extends StatefulWidget {
   final Function notifyParent;
+  final int index;
 
-  GroupPlayer({@required this.notifyParent});
+  GroupPlayer({@required this.notifyParent, this.index});
 
   @override
   _GroupPlayerState createState() => _GroupPlayerState();
@@ -27,7 +25,7 @@ class _GroupPlayerState extends State<GroupPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    Group group = Provider.of<Group>(context);
+    Group group = Provider.of<List<Group>>(context)[widget.index];
 
     return Scaffold(
       body: ListView.builder(
