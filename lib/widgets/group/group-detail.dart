@@ -113,6 +113,7 @@ class _GroupDetail extends State<GroupDetail> {
                       musicPlayer.resume();
                       setState(() {
                         _group.paused = false;
+                        databaseService.updateGroup(_group);
                       });
                     }
                   }else {
@@ -120,6 +121,7 @@ class _GroupDetail extends State<GroupDetail> {
                     musicPlayer.pause();
                     setState(() {
                       _group.paused = true;
+                      databaseService.updateGroup(_group);
                     });
                   }
                 }
