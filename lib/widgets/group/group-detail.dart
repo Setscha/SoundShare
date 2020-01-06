@@ -81,6 +81,7 @@ class _GroupDetail extends State<GroupDetail> {
           )
       );
     }
+    lastURL = _group.currentURL;
 
     return _group == null ? Container() : DefaultTabController(
       length: 3,
